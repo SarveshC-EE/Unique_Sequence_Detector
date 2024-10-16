@@ -6,13 +6,14 @@ parameter S0=3'b000,G=3'b001,B=3'b010,R=3'b011,GR=3'b100,GB=3'b101,BR=3'b110,RGB
 parameter g=2'b00,b=2'b01,r=2'b10;
 reg[2:0] pr_st,nx_st;
 
-always@(posedge clk)
+    always@(posedge clk) begin
     if(rst)
         pr_st <= S0;
     else
         pr_st <= nx_st;
+    end
 
-always@(inp,pr_st)
+    always@(inp,pr_st) begin
     case(pr_st)
         S0: if(inp==g) nx_st=G;
             else if(inp==b) nx_st=B;
@@ -31,8 +32,9 @@ always@(inp,pr_st)
         BR: nx_st=S0;
         default: nx_st=S0;
     endcase
+    end
     
-always@(inp,pr_st)
+    always@(inp,pr_st) begin
     case(pr_st)
         S0: out=0;
         G: out=0;
@@ -46,5 +48,6 @@ always@(inp,pr_st)
             else out=0;
         default: out=0;
     endcase
+    end
 endmodule
 
